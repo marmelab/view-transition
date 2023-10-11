@@ -5,6 +5,7 @@ export type Riddle = {
 
 export type Question = {
   text: string;
+  isMultipleChoice: boolean;
   answers: Answer[];
 };
 

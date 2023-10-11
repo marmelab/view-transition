@@ -1,3 +1,4 @@
+import { ActionFunctionArgs } from "react-router";
 import { LoaderFunctionArgs, redirect } from "react-router-dom";
 import { Answer, Riddle } from "../riddles/type";
 
@@ -38,4 +39,15 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     title,
     question: questionWithoutResult,
   };
+};
+
+export const action = async ({ params }: ActionFunctionArgs) => {
+  if (!params.riddle || !params.page) {
+    return redirect("/");
+  }
+  const page = parseInt(params.page, 10);
+  if (isNaN(page)) {
+    return redirect(`/riddle/${params.riddle}/page/0`);
+  }
+  return redirect(`/riddle/${params.riddle}/page/${page + 1}`);
 };

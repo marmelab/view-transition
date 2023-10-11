@@ -5,7 +5,10 @@ import ErrorPage from "./ErrorPage";
 import Root from "./Root";
 import "./index.css";
 import { RiddlePage } from "./routes/riddle.$riddleId.page.$pageId";
-import { loader as RiddlePageLoader } from "./routes/riddle.$riddleId.page.$pageId.functions";
+import {
+  action as RiddlePageAction,
+  loader as RiddlePageLoader,
+} from "./routes/riddle.$riddleId.page.$pageId.functions";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +20,7 @@ const router = createBrowserRouter([
         path: "riddle/:riddle/page/:page",
         element: <RiddlePage />,
         loader: RiddlePageLoader,
+        action: RiddlePageAction,
       },
     ],
   },

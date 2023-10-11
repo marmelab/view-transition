@@ -39,23 +39,98 @@
 }
 
 ::view-transition-group(root) {
-  animation: 1s ease both mega-spin;
+  animation: 200ms ease both mega-spin;
   transform-origin: 50% 50%;
 }
 
-::view-transition-group(batman) {
-  aspect-ratio: 592.2 / 569;
-  width: 100%;
-  height: auto;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+::view-transition-group(selected) {
 }
 
-::view-transition-image-pair(batman) {
-  background: url(/batman.svg) no-repeat center;
-  background-size: contain;
+@keyframes selected-responses-up {
+  0% {
+    animation-timing-function: ease-in;
+  }
+  20% {
+    transform: translateY(-150px);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes selected-responses-bottom {
+  0% {
+    animation-timing-function: ease-in;
+  }
+  20% {
+    transform: translateY(150px);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+::view-transition-image-pair(selected-0),
+::view-transition-image-pair(selected-1) {
   animation: 100ms ease-in-out both fade-in,
-    100ms 900ms ease-in-out both fade-out, 1s linear both batman;
+    100ms 900ms ease-in-out both fade-out, 1s linear both selected-responses-up;
   transform-origin: 50% 50%;
+}
+
+::view-transition-image-pair(selected-2),
+::view-transition-image-pair(selected-3) {
+  animation: 100ms ease-in-out both fade-in,
+    100ms 900ms ease-in-out both fade-out,
+    1s linear both selected-responses-bottom;
+  transform-origin: 50% 50%;
+}
+
+.selected-0 {
+  view-transition-name: selected-0;
+}
+
+.selected-1 {
+  view-transition-name: selected-1;
+}
+
+.selected-2 {
+  view-transition-name: selected-2;
+}
+
+.selected-3 {
+  view-transition-name: selected-3;
+}
+
+@keyframes non-selected-responses {
+  0% {
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translateX(-200%);
+  }
+}
+
+::view-transition-image-pair(non-selected-0),
+::view-transition-image-pair(non-selected-1),
+::view-transition-image-pair(non-selected-2),
+::view-transition-image-pair(non-selected-3) {
+  animation: 100ms ease-in-out both fade-in,
+    100ms 900ms ease-in-out both fade-out, 1s linear both non-selected-responses;
+  transform-origin: 50% 50%;
+}
+
+.non-selected-0 {
+  view-transition-name: non-selected-0;
+}
+
+.non-selected-1 {
+  view-transition-name: non-selected-1;
+}
+
+.non-selected-2 {
+  view-transition-name: non-selected-2;
+}
+
+.non-selected-3 {
+  view-transition-name: non-selected-3;
 }

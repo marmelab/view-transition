@@ -1,8 +1,11 @@
+import { Riddle } from "./type";
+
 export default {
   title: "Security",
   questions: [
     {
       text: "What is the most secure password?",
+      isMultipleChoice: false,
       answers: [
         {
           text: "123456",
@@ -24,6 +27,7 @@ export default {
     },
     {
       text: "What is the best way to protect your computer from malware?",
+      isMultipleChoice: true,
       answers: [
         {
           text: "Install an antivirus",
@@ -45,24 +49,25 @@ export default {
     },
     {
       text: "What is the best way to totally protect your computer from threats?",
+      isMultipleChoice: true,
       answers: [
         {
-          text: "Install an antivirus",
+          text: "Pray",
           correct: false,
         },
         {
-          text: "Turn off for ever your computer",
+          text: "Remove windows",
           correct: true,
         },
         {
-          text: "Install a firewall",
+          text: "Remove MacOS",
           correct: false,
         },
         {
-          text: "Install updates",
+          text: "Install Linux",
           correct: false,
         },
       ],
     },
   ],
-};
+} satisfies Riddle;

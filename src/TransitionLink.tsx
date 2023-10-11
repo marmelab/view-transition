@@ -6,12 +6,15 @@ export const TransitionLink = (props: LinkProps) => {
   const handleClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     if (document.startViewTransition) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      document.startViewTransition();
+      document.startViewTransition(() => onClick?.(event));
+    } else {
+      onClick?.(event);
     }
-    onClick?.(event);
   };
 
   return (

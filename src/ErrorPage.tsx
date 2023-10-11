@@ -6,7 +6,7 @@ export default function ErrorPage() {
   const title = error.statusText ?? "Error";
   const message = error?.message ?? error?.data ?? error?.toString();
   return (
-    <div className="w-screen h-screen grid place-content-center">
+    <div className="w-screen h-screen grid place-content-center p-2">
       <div className="p-8 rounded-xl border-2 border-red-500 shadow-lg shadow-red-500">
         <h1 className="text-4xl mb-4">
           <span className="shadow-[0px_18px_6px_-14px_#ef4444]">{title}</span>
