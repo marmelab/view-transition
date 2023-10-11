@@ -46,6 +46,21 @@
 ::view-transition-group(selected) {
 }
 
+@keyframes appearing {
+  0% {
+    opacity: 0;
+    scale: 0;
+  }
+  75% {
+    opacity: 0;
+    scale: 0;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
 @keyframes selected-responses-up {
   0% {
     animation-timing-function: ease-in;
@@ -70,15 +85,26 @@
   }
 }
 
-::view-transition-image-pair(selected-0),
-::view-transition-image-pair(selected-1) {
-  animation: 100ms ease-in-out both fade-in,
-    100ms 900ms ease-in-out both fade-out, 1s linear both selected-responses-up;
+::view-transition-new(selected-0),
+::view-transition-new(selected-1),
+::view-transition-new(selected-2),
+::view-transition-new(selected-3),
+::view-transition-new(non-selected-0),
+::view-transition-new(non-selected-1),
+::view-transition-new(non-selected-2),
+::view-transition-new(non-selected-3) {
+  animation: 1s linear both appearing;
   transform-origin: 50% 50%;
 }
 
-::view-transition-image-pair(selected-2),
-::view-transition-image-pair(selected-3) {
+::view-transition-old(selected-0),
+::view-transition-old(selected-1) {
+  animation: 1s linear both selected-responses-up;
+  transform-origin: 50% 50%;
+}
+
+::view-transition-old(selected-2),
+::view-transition-old(selected-3) {
   animation: 100ms ease-in-out both fade-in,
     100ms 900ms ease-in-out both fade-out,
     1s linear both selected-responses-bottom;
@@ -110,10 +136,10 @@
   }
 }
 
-::view-transition-image-pair(non-selected-0),
-::view-transition-image-pair(non-selected-1),
-::view-transition-image-pair(non-selected-2),
-::view-transition-image-pair(non-selected-3) {
+::view-transition-old(non-selected-0),
+::view-transition-old(non-selected-1),
+::view-transition-old(non-selected-2),
+::view-transition-old(non-selected-3) {
   animation: 100ms ease-in-out both fade-in,
     100ms 900ms ease-in-out both fade-out, 1s linear both non-selected-responses;
   transform-origin: 50% 50%;
