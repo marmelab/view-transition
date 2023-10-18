@@ -4,9 +4,3 @@ export type LoaderData<T> = T extends (...args: any[]) => infer Output
     ? never
     : Exclude<Awaited<Output>, Response>
   : never;
-
-declare global {
-  interface Document {
-    startViewTransition: (init?: () => void) => void;
-  }
-}

@@ -16,7 +16,23 @@ export const RiddlePage = () => {
   }, [question]);
 
   return (
-    <Form method="POST" className="flex w-full place-content-center px-4">
+    <Form
+      method="POST"
+      className="flex w-full place-content-center px-4"
+      unstable_viewTransition // Doesn't work
+      onSubmit={(e) => {
+        if (document.startViewTransition) {
+          e.preventDefault();
+          // Manually trigger the view transition
+          document.startViewTransition(() =>
+            submit(null, {
+              method: "POST",
+              unstable_viewTransition: true, // Doesn't work
+            })
+          );
+        }
+      }}
+    >
       <div className="container text-center">
         <h1 className="text-xl w-full pt-6">{title}</h1>
         <h2 className="text-4xl w-full p-6">{question.text}</h2>
@@ -69,14 +85,6 @@ export const RiddlePage = () => {
         <button
           className="border mt-8 p-4 rounded-xl bg-indigo-800"
           type="submit"
-          onClick={(e) => {
-            if (document.startViewTransition) {
-              e.preventDefault();
-              document.startViewTransition(() =>
-                submit(null, { method: "POST" })
-              );
-            }
-          }}
         >
           Submit
         </button>
