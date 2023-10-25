@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Form, useLoaderData, useSubmit } from "react-router-dom";
-import { LoaderData } from "../types";
-import { loader } from "./riddle.$riddleId.page.$pageId.functions";
+import { loader } from "./riddle.$riddleId.question.$question.functions";
 
-export const RiddlePage = () => {
-  const { title, question } = useLoaderData() as LoaderData<typeof loader>;
+export const RiddleQuestion = () => {
+  const { title, question } = useLoaderData<typeof loader>();
   const [selectedAnswers, setSelectedAnswers] = useState<Set<number>>(
     () => new Set()
   );
 
   const submit = useSubmit();
+
+  const ref = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     setSelectedAnswers(new Set());
@@ -17,6 +18,7 @@ export const RiddlePage = () => {
 
   return (
     <Form
+      ref={ref}
       method="POST"
       className="flex w-full place-content-center px-4"
       unstable_viewTransition // Doesn't work
@@ -24,12 +26,13 @@ export const RiddlePage = () => {
         if (document.startViewTransition) {
           e.preventDefault();
           // Manually trigger the view transition
-          document.startViewTransition(() =>
-            submit(null, {
+          document.startViewTransition(async () => {
+            submit(ref.current, {
               method: "POST",
               unstable_viewTransition: true, // Doesn't work
-            })
-          );
+            });
+            await new Promise((resolve) => setTimeout(resolve, 100));
+          });
         }
       }}
     >
@@ -41,7 +44,7 @@ export const RiddlePage = () => {
             <div key={id}>
               <input
                 type={question.isMultipleChoice ? "checkbox" : "radio"}
-                name={question.isMultipleChoice ? `answer-${id}` : "answers"}
+                name="answers"
                 value={answer.text}
                 className="hidden"
                 id={`answer-${id}`}

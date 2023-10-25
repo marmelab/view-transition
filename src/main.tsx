@@ -4,11 +4,13 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import Root from "./Root";
 import "./index.css";
-import { RiddlePage } from "./routes/riddle.$riddleId.page.$pageId";
+import { RiddleQuestion } from "./routes/riddle.$riddleId.question.$question";
 import {
-  action as RiddlePageAction,
-  loader as RiddlePageLoader,
-} from "./routes/riddle.$riddleId.page.$pageId.functions";
+  action as RiddleQuestionAction,
+  loader as RiddleQuestionLoader,
+} from "./routes/riddle.$riddleId.question.$question.functions";
+import { RiddleResult } from "./routes/riddle.$riddleId.result";
+import { loader as RiddleResultLoader } from "./routes/riddle.$riddleId.result.functions";
 
 const router = createBrowserRouter([
   {
@@ -17,10 +19,15 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "riddle/:riddle/page/:page",
-        element: <RiddlePage />,
-        loader: RiddlePageLoader,
-        action: RiddlePageAction,
+        path: "riddle/:riddleId/result",
+        element: <RiddleResult />,
+        loader: RiddleResultLoader,
+      },
+      {
+        path: "riddle/:riddleId/question/:question",
+        element: <RiddleQuestion />,
+        loader: RiddleQuestionLoader,
+        action: RiddleQuestionAction,
       },
     ],
   },

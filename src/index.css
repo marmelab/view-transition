@@ -14,36 +14,8 @@
   }
 }
 
-@keyframes mega-spin {
-  to {
-    transform: rotate(5turn);
-  }
-}
-
-@keyframes batman {
-  0% {
-    transform: scale(0.2) translateY(6%);
-    animation-timing-function: ease-in;
-  }
-  50% {
-    transform: scale(1.7) translateY(6%);
-    animation-timing-function: ease-out;
-  }
-  100% {
-    transform: scale(0.2) translateY(6%);
-  }
-}
-
 ::view-transition {
   inset: 0;
-}
-
-::view-transition-group(root) {
-  animation: 200ms ease both mega-spin;
-  transform-origin: 50% 50%;
-}
-
-::view-transition-group(selected) {
 }
 
 @keyframes appearing {
@@ -69,7 +41,7 @@
     transform: translateY(-150px);
   }
   100% {
-    transform: translateX(200%);
+    transform: translateX(250%);
   }
 }
 
@@ -81,7 +53,7 @@
     transform: translateY(150px);
   }
   100% {
-    transform: translateX(200%);
+    transform: translateX(250%);
   }
 }
 
@@ -89,10 +61,14 @@
 ::view-transition-new(selected-1),
 ::view-transition-new(selected-2),
 ::view-transition-new(selected-3),
+::view-transition-new(selected-4),
+::view-transition-new(selected-5),
 ::view-transition-new(non-selected-0),
 ::view-transition-new(non-selected-1),
 ::view-transition-new(non-selected-2),
-::view-transition-new(non-selected-3) {
+::view-transition-new(non-selected-3),
+::view-transition-new(non-selected-4),
+::view-transition-new(non-selected-5) {
   animation: 1s linear both appearing;
   transform-origin: 50% 50%;
 }
@@ -104,7 +80,9 @@
 }
 
 ::view-transition-old(selected-2),
-::view-transition-old(selected-3) {
+::view-transition-old(selected-3),
+::view-transition-old(selected-4),
+::view-transition-old(selected-5) {
   animation: 100ms ease-in-out both fade-in,
     100ms 900ms ease-in-out both fade-out,
     1s linear both selected-responses-bottom;
@@ -126,6 +104,12 @@
 .selected-3 {
   view-transition-name: selected-3;
 }
+.selected-4 {
+  view-transition-name: selected-4;
+}
+.selected-5 {
+  view-transition-name: selected-5;
+}
 
 @keyframes non-selected-responses {
   0% {
@@ -139,7 +123,9 @@
 ::view-transition-old(non-selected-0),
 ::view-transition-old(non-selected-1),
 ::view-transition-old(non-selected-2),
-::view-transition-old(non-selected-3) {
+::view-transition-old(non-selected-3),
+::view-transition-old(non-selected-4),
+::view-transition-old(non-selected-5) {
   animation: 100ms ease-in-out both fade-in,
     100ms 900ms ease-in-out both fade-out, 1s linear both non-selected-responses;
   transform-origin: 50% 50%;
@@ -159,4 +145,36 @@
 
 .non-selected-3 {
   view-transition-name: non-selected-3;
+}
+
+.non-selected-4 {
+  view-transition-name: non-selected-4;
+}
+
+.non-selected-5 {
+  view-transition-name: non-selected-5;
+}
+
+.transition-big {
+  view-transition-name: big;
+}
+
+@keyframes big {
+  50% {
+    scale: 3;
+  }
+}
+
+::view-transition-new(big) {
+  animation: 2s 2000ms ease-in-out both big,
+    200ms 2000ms ease-in-out both fade-in;
+  transform-origin: 50% 50%;
+}
+
+.transition-reveal-late {
+  view-transition-name: reveal-late;
+}
+
+::view-transition-new(reveal-late) {
+  animation: 200ms 5000ms ease-in-out both fade-in;
 }

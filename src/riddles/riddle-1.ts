@@ -61,7 +61,7 @@ export default {
         },
         {
           text: "Remove MacOS",
-          correct: false,
+          correct: true,
         },
         {
           text: "Install Linux",

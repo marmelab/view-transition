@@ -7,13 +7,14 @@ export default function Root() {
         <Link to="/" unstable_viewTransition>
           Home
         </Link>
-        <Link to="/riddle/1/page/0" unstable_viewTransition>
+        <Link to="/riddle/1/question/0" unstable_viewTransition>
           Riddle 1
         </Link>
+        <Link to="/riddle/2/question/0" unstable_viewTransition>
+          OWASP TOP 3
+        </Link>
       </div>
-      <div>
-        <Outlet />
-      </div>
+      <Outlet />
     </div>
   );
 }

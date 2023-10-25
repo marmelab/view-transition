@@ -4,3 +4,8 @@ export type LoaderData<T> = T extends (...args: any[]) => infer Output
     ? never
     : Exclude<Awaited<Output>, Response>
   : never;
+
+declare module "react-router-dom" {
+  export function useLoaderData<T = unknown>(): LoaderData<T>;
+  export function useActionData<T = unknown>(): LoaderData<T>;
+}
