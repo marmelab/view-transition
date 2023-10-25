@@ -23,7 +23,7 @@ export const RiddleResult = () => {
           {score} / {numberOfQuestions}
         </div>
 
-        <div className="w-full p-6 transition-reveal-late text-4xl">
+        <div className="w-full p-6 transition-reveal-later text-4xl">
           Responses
           {questions.map((question, id) => (
             <div key={id} className="w-full p-6">

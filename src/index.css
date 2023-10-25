@@ -176,5 +176,13 @@
 }
 
 ::view-transition-new(reveal-late) {
+  animation: 200ms 750ms ease-in-out both fade-in;
+}
+
+.transition-reveal-later {
+  view-transition-name: reveal-later;
+}
+
+::view-transition-new(reveal-later) {
   animation: 200ms 5000ms ease-in-out both fade-in;
 }

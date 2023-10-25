@@ -11,6 +11,7 @@ import {
 } from "./routes/riddle.$riddleId.question.$question.functions";
 import { RiddleResult } from "./routes/riddle.$riddleId.result";
 import { loader as RiddleResultLoader } from "./routes/riddle.$riddleId.result.functions";
+import { Home } from "./Home";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,16 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "riddle/:riddleId",
+        element: <RiddleQuestion />,
+        loader: RiddleQuestionLoader,
+        action: RiddleQuestionAction,
+      },
       {
         path: "riddle/:riddleId/result",
         element: <RiddleResult />,
