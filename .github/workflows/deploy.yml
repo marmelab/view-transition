@@ -27,7 +27,7 @@ jobs:
       - name: Build application
         run: cd riddle && yarn run build
         env:
-          BASE_URL: /view-transition/
+          BASE_URL: /view-transition/riddle/
 
       - name: Copy static files to public
         run: |
