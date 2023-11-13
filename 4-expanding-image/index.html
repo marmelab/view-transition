@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Page with Image</title>
+  </head>
+  <body>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        overflow: hidden;
+      }
+      #container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+      }
+      .item {
+        width: 300px;
+        border-radius: 16px;
+        cursor: pointer;
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        box-shadow: 12px 6px 6px rgba(0, 0, 0, 0.2);
+      }
+      .short {
+        object-fit: fill;
+        width: 300px;
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+      }
+
+      #header-wrapper {
+        position: absolute;
+        top: 0;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        z-index: 1;
+      }
+
+      h1 {
+        font-size: 2rem;
+        color: white;
+        text-shadow: 0 0 10px black;
+        padding: 1rem;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+      }
+
+      img {
+        object-fit: cover;
+        object-position: center;
+        cursor: pointer;
+      }
+
+      header {
+        view-transition-name: header-transition;
+      }
+
+      @keyframes roll-out-left {
+        0% {
+          transform: translateX(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(-1000px) rotate(-540deg);
+          opacity: 0;
+        }
+      }
+
+      @keyframes tilt-in-fwd-tr {
+        0% {
+          transform: rotateY(20deg) rotateX(35deg) translate(300px, -300px)
+            skew(-35deg, 10deg);
+          opacity: 0;
+        }
+        100% {
+          transform: rotateY(0) rotateX(0deg) translate(0, 0) skew(0deg, 0deg);
+          opacity: 1;
+        }
+      }
+
+      ::view-transition-old(header-transition) {
+        animation: roll-out-left 0.6s ease-in both;
+      }
+      ::view-transition-new(header-transition) {
+        animation: tilt-in-fwd-tr 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      }
+
+      .water {
+        view-transition-name: water-transition;
+      }
+      .nature {
+        view-transition-name: nature-transition;
+      }
+
+      /*  animations from https://animista.net */
+    </style>
+    <script>
+      const replaceDomWithImage = async (topic) => {
+        const container = document.querySelector("#container");
+        container.innerHTML = `
+        <div id="header-wrapper">
+            <header>
+                <h1>A beautiful image of nature</h1>
+            </header>
+        </div>
+        <img
+          src="./${topic}.jpeg"
+          class="full ${topic}"
+          alt="A beautiful image of ${topic}"
+          onClick="unSelectImage()"
+        />
+      `;
+      };
+
+      const selectImage = async (topic) => {
+        if (document.startViewTransition) {
+          document.startViewTransition(async () => {
+            await replaceDomWithImage(topic);
+          });
+        } else {
+          await replaceDomWithImage(topic);
+        }
+      };
+
+      const replaceDomWithItems = async (topic) => {
+        const container = document.querySelector("#container");
+        container.innerHTML = `
+      <div class="item" onClick="selectImage('nature')">
+        <img
+          src="./nature.jpeg"
+          class="short nature"
+          alt="A beautiful image of nature"
+        />
+        <h1>A beautiful image of nature</h1>
+      </div>
+      <div class="item" onClick="selectImage('water')">
+        <img
+          src="./water.jpeg"
+          class="short water"
+          alt="A beautiful image of water"
+        />
+        <h1>A beautiful image of water</h1>
+      </div>
+      `;
+      };
+
+      const unSelectImage = async () => {
+        if (document.startViewTransition) {
+          document.startViewTransition(async () => {
+            await replaceDomWithItems();
+          });
+        } else {
+          await replaceDomWithItems();
+        }
+      };
+    </script>
+    <div id="container">
+      <div class="item" onClick="selectImage('nature')">
+        <img
+          src="./nature.jpeg"
+          class="short nature"
+          alt="A beautiful image of nature"
+        />
+        <h1>A beautiful image of nature</h1>
+      </div>
+      <div class="item" onClick="selectImage('water')">
+        <img
+          src="./water.jpeg"
+          class="short water"
+          alt="A beautiful image of water"
+        />
+        <h1>A beautiful image of water</h1>
+      </div>
+    </div>
+  </body>
+</html>

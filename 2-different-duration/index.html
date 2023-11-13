@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Page with Image</title>
+  </head>
+  <body>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      img {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        object-position: center;
+        cursor: pointer;
+      }
+      ::view-transition-old(root) {
+        animation-duration: 1s;
+      }
+      ::view-transition-new(root) {
+        animation-duration: 3s;
+      }
+    </style>
+    <script>
+      const topics = ["nature", "water", "mountains", "sky", "clouds"];
+      let currentTopic = 0;
+
+      const changeUrl = async () => {
+        const img = new Image();
+        currentTopic = (currentTopic + 1) % topics.length;
+        const url = `https://source.unsplash.com/1920x1080?${topics[currentTopic]}`;
+        img.src = url;
+        await new Promise((resolve, reject) => {
+          img.onload = () => {
+            resolve();
+          };
+          img.onerror = () => {
+            reject();
+          };
+        });
+        const image = document.querySelector("img");
+        image.src = url;
+        image.alt = `A beautiful image of ${topics[currentTopic]}`;
+      };
+
+      const changeImage = async () => {
+        if (document.startViewTransition) {
+          document.startViewTransition(async () => {
+            await changeUrl();
+          });
+        } else {
+          await changeUrl();
+        }
+      };
+    </script>
+    <img
+      src="https://source.unsplash.com/1920x1080?nature"
+      alt="A beautiful image of nature"
+      onClick="changeImage()"
+    />
+  </body>
+</html>

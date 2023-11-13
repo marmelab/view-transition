@@ -1,4 +1,4 @@
-import { Riddle } from "../../riddles/type";
+import { Riddle } from "../../riddles/type.js";
 
 export const loadRiddle = async (riddleId: number) => {
   let riddle: { default: Riddle } | undefined;

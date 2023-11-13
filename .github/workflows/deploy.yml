@@ -1,0 +1,46 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: cd riddle && yarn
+
+      - name: Build application
+        run: cd riddle && yarn run build
+        env:
+          BASE_URL: /view-transition/
+
+      - name: Copy static files to public
+        run: |
+          mkdir public
+          cp index.html public/index.html
+          cp -r 1-simple public/1-simple
+          cp -r 2-different-duration public/2-different-duration
+          cp -r 3-custom-selector public/3-custom-selector
+          cp -r 4-expanding-image public/4-expanding-image
+
+      - name: Copy built files to public
+        run: cp -r riddle/dist public/riddle
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: public
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v2
