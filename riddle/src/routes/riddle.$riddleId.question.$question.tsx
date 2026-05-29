@@ -21,7 +21,7 @@ export const RiddleQuestion = () => {
       ref={ref}
       method="POST"
       className="flex w-full place-content-center px-4"
-      unstable_viewTransition // Doesn't work
+      viewTransition
       onSubmit={(e) => {
         if (document.startViewTransition) {
           e.preventDefault();
@@ -29,7 +29,7 @@ export const RiddleQuestion = () => {
           document.startViewTransition(async () => {
             submit(ref.current, {
               method: "POST",
-              unstable_viewTransition: true, // Doesn't work
+              viewTransition: true,
             });
             await new Promise((resolve) => setTimeout(resolve, 100));
           });
